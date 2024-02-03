@@ -9,7 +9,7 @@ const listaDeLivros = async(req, res) => {
 // Adicionar novo livro
 // Rota /livro
 // Método POST
-const criarLivro = async(req, res) => {
+const registrarLivro = async(req, res) => {
     res.json({menssagem: "Livro adicionado"})
 };
 
@@ -36,7 +36,7 @@ const apagarLivro = async(req, res) => {
 
 export {
     listaDeLivros,
-    criarLivro,
+    registrarLivro,
     livroPorId,
     atualizarLivro,
     apagarLivro

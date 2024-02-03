@@ -2,6 +2,7 @@ import express from "express";
 import dbConnect from "./config/dbConnect.js";
 import userRouter from "./routes/userRoute.js";
 import livroRouter from "./routes/livroRoute.js";
+import autorRouter from "./routes/autorRoute.js";
 
 // Conexão com com o bando de dados
 const connect = await dbConnect();
@@ -23,5 +24,6 @@ app.use(express.urlencoded({extended: false}));
 // Rotas
 app.use("/user", userRouter);
 app.use("/livro", livroRouter);
+app.use("/autor", autorRouter);
 
 export default app;

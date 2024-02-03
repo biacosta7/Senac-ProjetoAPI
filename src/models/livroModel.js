@@ -30,8 +30,12 @@ const livroSchema = mongoose.Schema({
         minLength: 3,
         maxLength: 50,
     }
+},{
+    versionKey: false
+},{
+    timestamps: true
 });
 
-const Livro = mongoose.model("Livro", livroSchema);
+const livro = mongoose.model("Livro", livroSchema);
 
-export default Livro;
+export default livro;

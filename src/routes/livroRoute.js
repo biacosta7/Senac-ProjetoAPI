@@ -1,7 +1,7 @@
 import express from "express";
 import {
     listaDeLivros,
-    criarLivro,
+    registrarLivro,
     livroPorId,
     atualizarLivro,
     apagarLivro
@@ -9,7 +9,7 @@ import {
 
 const livroRouter = express.Router();
 
-livroRouter.route("/").get(listaDeLivros).post(criarLivro);
+livroRouter.route("/").get(listaDeLivros).post(registrarLivro);
 livroRouter.route("/:id").get(livroPorId).put(atualizarLivro).delete(apagarLivro);
 
 export default livroRouter;
