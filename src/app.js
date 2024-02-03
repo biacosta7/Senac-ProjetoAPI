@@ -1,14 +1,27 @@
 import express from "express"
+import dbConnect from "./config/dbConnect.js";
+import cliente from "./models/Clientes.js";
+
+const connect = await dbConnect()
+
+connect.on("error", (erro) =>{
+    console.error("Erro na conexão!", erro)
+}) 
+
+connect.once("open", () =>{
+    console.log("Sucesso na conexão com o banco de dados")
+}) //aguarda um evento
 
 const app = express();
 
 app.use(express.json()) //transforma p json antes de mostrar a res
 
 
-const clientes = [
-    { id: 1, nome: "João"},
-    { id: 2, nome: "Erick"}
-]
+// const clientes = [
+//     { id: 1, nome: "João"},
+
+//     { id: 2, nome: "Erick"}
+// ]
 
 
 //Rota Principal
@@ -17,8 +30,9 @@ app.get("/", (req, res) => {
 })
 
 //Consultar todos os clientes
-app.get("/clientes", (req, res) => {
-    res.status(200).json(clientes);
+app.get("/clientes", async (req, res) => {
+    const listaClientes = await cliente.find({}) // estrutura vazia ({}) retorna tudo
+    res.status(200).json(listaClientes);
 })
 
 //Consultar o cliente pelo id
@@ -51,10 +65,10 @@ app.delete("/clientes/:id", (req,res) => {
 
 })
 
-function buscarCliente(id){
-    var index = clientes.findIndex(cliente => cliente.id === Number(id)) //number(id) converte o id em número
-    return index
-}
+// function buscarCliente(id){
+//     var index = clientes.findIndex(cliente => cliente.id === Number(id)) //number(id) converte o id em número
+//     return index
+// }
 
 // function buscarCliente(id){
 //     clientes.findIndex(parametro => {cliente.id === i}}) faz o loop no id do cliente ate o id do cliente for igual ao id desejado 
