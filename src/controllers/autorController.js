@@ -1,11 +1,11 @@
-import autor from "../models/autorModel.js"
+import Autor from "../models/autorModel.js"
 
 
 // Lista de todos os autores
 // Rota /autor
 // Método GET
 const listaDeAutores = async(req, res) => {
-    const listaAutores = await autor.find({});
+    const listaAutores = await Autor.find({});
     if(listaAutores){
         res.status(200).json(listaAutores);
     } else if(listaAutores === null){
@@ -20,7 +20,7 @@ const registrarAutor = async(req, res) => {
     if(!req.body.nome){
         return res.status(400).json({menssagem: "Insira o nome do autor"});
     }
-    const novoAutor = await autor.create(req.body);
+    const novoAutor = await Autor.create(req.body);
     if(novoAutor){
         return res.status(201).json(novoAutor);
     }
@@ -34,7 +34,7 @@ const autorPorId = async(req, res) => {
     if(!id){
         return res.status(400).json({menssagem: "Nenhum id foi passado"})
     }
-    const findAutor = await autor.findById(id);
+    const findAutor = await Autor.findById(id);
     if(findAutor){
         return res.status(200).json(findAutor);
     } else if(findAutor === null){
@@ -54,7 +54,7 @@ const atualizarAutor = async(req, res) => {
     if(!updateAutor.nome && !updateAutor.nascimento && !updateAutor.falecimento){
         return res.status(400).json({menssagem: "Você precisa inserir informoções para atualizar"});
     }
-    const autorAtualizado = await autor.findByIdAndUpdate(id, updateAutor, {new: true});
+    const autorAtualizado = await Autor.findByIdAndUpdate(id, updateAutor, {new: true});
     if(autorAtualizado){
         return res.status(200).json(autorAtualizado);
     } else if(autorAtualizado === null){
@@ -71,7 +71,7 @@ const apagarAutor = async(req, res) => {
     if(!id){
         return res.status(400).json({menssagem: "Nenhum id foi passado"})
     }
-    const deleteAutor = await autor.findByIdAndDelete(id);
+    const deleteAutor = await Autor.findByIdAndDelete(id);
     if(deleteAutor){
         return res.status(200).json({menssagem: `Autor de id ${id} foi deletado`});
     } else if(deleteAutor === null){
