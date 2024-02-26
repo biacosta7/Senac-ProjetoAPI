@@ -20,15 +20,18 @@ const livroSchema = mongoose.Schema({
         maxLength: 13,
     },
     ano: {
-        type: Number,
+        type: Date,
         required: true,
-        min: 0,
-        max: 3000,
+        default: Date.now()
     },
     genero: {
         type: String,
         minLength: 3,
         maxLength: 50,
+    },
+    resumo: {
+        type: String,
+        required: true
     }
 },{
     versionKey: false

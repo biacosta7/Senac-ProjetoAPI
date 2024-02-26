@@ -1,5 +1,5 @@
 import Autor from "../models/autorModel.js"
-
+import Livro from "../models/livroModel.js"
 
 // Lista de todos os autores
 // Rota /autor
@@ -17,13 +17,22 @@ const listaDeAutores = async(req, res) => {
 // Rota /autor
 // Método POST
 const registrarAutor = async(req, res) => {
-    if(!req.body.nome){
-        return res.status(400).json({menssagem: "Insira o nome do autor"});
+    const autor = new Autor({
+        nome: req.body.nome,
+        nascimento: req.body.nascimento,
+        falecimento: req.body.falecimento
+    });
+    if(Array.isArray(req.body)){
+        const autoresCriados = await Autor.create(req.body);
+        return res.status(201).json(autoresCriados)
     }
-    const novoAutor = await Autor.create(req.body);
-    if(novoAutor){
+    if(!autor.nome){
+        return res.status(400).json({menssagem: "Insira o nome do autor"});
+    } else {
+        const novoAutor = await autor.save();
         return res.status(201).json(novoAutor);
     }
+    
 };
 
 // Informação do autor por id
@@ -47,19 +56,20 @@ const autorPorId = async(req, res) => {
 // Método PUT
 const atualizarAutor = async(req, res) => {
     let id = req.params.id;
+    const updateAutor = req.body;
     if(!id){
         return res.status(400).json({menssagem: "Nenhum id foi passado"});
     }
-    const updateAutor = req.body;
     if(!updateAutor.nome && !updateAutor.nascimento && !updateAutor.falecimento){
         return res.status(400).json({menssagem: "Você precisa inserir informoções para atualizar"});
-    }
-    const autorAtualizado = await Autor.findByIdAndUpdate(id, updateAutor, {new: true});
-    if(autorAtualizado){
-        return res.status(200).json(autorAtualizado);
-    } else if(autorAtualizado === null){
-        return res.status(404).json({menssagem: `Não foi encontrado nenhum ator com id ${id}`});
-    }
+    } else {
+        const autorAtualizado = await Autor.findByIdAndUpdate(id, updateAutor, {new: true});
+        if(autorAtualizado){
+            return res.status(200).json(autorAtualizado);
+        } else if(autorAtualizado === null){
+            return res.status(404).json({menssagem: `Não foi encontrado nenhum ator com id ${id}`});
+        }
+    }  
 };
 
 // Deletar autor por id
@@ -70,14 +80,22 @@ const apagarAutor = async(req, res) => {
     let id = req.params.id
     if(!id){
         return res.status(400).json({menssagem: "Nenhum id foi passado"})
+    } else {
+        const livrosDoAutor = await Livro.find({autor: id}, "titulo");
+        if(livrosDoAutor){
+            return res.status(400).json({
+                menssagem: "Precisa excluir todos os livros desse autor antes de exclui-lo",
+                livros: livrosDoAutor
+            });
+        } else if(livrosDoAutor === null){
+            const deleteAutor = await Autor.findByIdAndDelete(id);
+            if(deleteAutor){
+                return res.status(200).json({menssagem: `Autor de id ${id} foi deletado`});
+            } else if(deleteAutor === null){
+                return res.status(404).json({menssagem: `Não foi encontrado nenhum ator com id ${id}`})
+            }
+        } 
     }
-    const deleteAutor = await Autor.findByIdAndDelete(id);
-    if(deleteAutor){
-        return res.status(200).json({menssagem: `Autor de id ${id} foi deletado`});
-    } else if(deleteAutor === null){
-        return res.status(404).json({menssagem: `Não foi encontrado nenhum ator com id ${id}`})
-    }
-    
 };
 
 export {

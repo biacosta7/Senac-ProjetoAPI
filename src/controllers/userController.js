@@ -24,15 +24,15 @@ const registrarUsuario = async(req, res) => {
     };
     if(!user.nome || !user.email || !user.senha){
         return res.status(400).json({menssagem: "Por favor insira um nome, email, senha"})
-    }
-    const findEmail = await User.findOne({email: user.email});
-    if(findEmail){
-        return res.status(400).json({menssagem: "E-mail já utilizado"});
-    }
-    const novoUser = await User.create(user);
-    if(novoUser){
-        return res.status(201).json(novoUser)
-    }
+    } else {
+        const findEmail = await User.findOne({email: user.email});
+        if(findEmail){
+            return res.status(400).json({menssagem: "E-mail já utilizado"});
+        } else if(findEmail === null){
+            const novoUser = await User.create(user);
+            return res.status(201).json(novoUser)
+        }    
+    } 
 }
 
 // Login do usuário

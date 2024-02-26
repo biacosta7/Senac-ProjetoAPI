@@ -1,0 +1,81 @@
+{ "autores":[
+    {
+      "nome": "J.K. Rowling",
+      "nascimento": "1965-07-31",
+      "falecimento": null
+    },
+    {
+      "nome": "Stephen King",
+      "nascimento": "1947-09-21",
+      "falecimento": null
+    },
+    {
+      "nome": "Agatha Christie",
+      "nascimento": "1890-09-15",
+      "falecimento": "1976-01-12"
+    }
+  ],
+  "livros":[
+    {
+      "titulo": "Harry Potter e a Pedra Filosofal",
+      "autor": "J.K. Rowling",
+      "isbn": "9788532530785",
+      "ano": "1997",
+      "genero": "Fantasia",
+      "resumo": "O primeiro livro da série Harry Potter, que narra as aventuras de um jovem bruxo chamado Harry, que descobre seu verdadeiro destino ao frequentar a Escola de Magia e Bruxaria de Hogwarts."
+    },
+    {
+      "titulo": "O Iluminado",
+      "autor": "Stephen King",
+      "isbn": "9788581051085",
+      "ano": "1977",
+      "genero": "Horror",
+      "resumo": "Um romance de horror psicológico que conta a história de Jack Torrance, um escritor alcoólatra que aceita um emprego como zelador de inverno em um hotel isolado nas montanhas do Colorado, onde eventos sinistros começam a acontecer."
+    },
+    {
+      "titulo": "Assassinato no Expresso Oriente",
+      "autor": "Agatha Christie",
+      "isbn": "9788525406977",
+      "ano": "1934",
+      "genero": "Mistério",
+      "resumo": "Um dos mais famosos romances policiais de Agatha Christie, que segue o detetive Hercule Poirot enquanto ele investiga um assassinato ocorrido a bordo do luxuoso Expresso Oriente durante uma viagem de trem pela Europa."
+    },
+    {
+      "titulo": "Harry Potter e a Câmara Secreta",
+      "autor": "J.K. Rowling",
+      "isbn": "9788532530808",
+      "ano": "1998",
+      "genero": "Fantasia",
+      "resumo": "O segundo livro da série Harry Potter, onde Harry retorna a Hogwarts para seu segundo ano e enfrenta uma série de desafios, incluindo uma misteriosa câmara secreta e uma terrível criatura que a habita."
+    },
+    {
+      "titulo": "It: A Coisa",
+      "autor": "Stephen King",
+      "isbn": "9788581051795",
+      "ano": "1986",
+      "genero": "Horror",
+      "resumo": "Um épico de terror que acompanha um grupo de amigos que enfrenta uma entidade maligna que assume a forma dos maiores medos de suas vítimas, revisitando a cidade de Derry, Maine, onde juraram acabar com a criatura quando eram crianças."
+    },
+    {
+      "titulo": "E Não Sobrou Nenhum",
+      "autor": "Agatha Christie",
+      "isbn": "9788525433157",
+      "ano": "1939",
+      "genero": "Mistério",
+      "resumo": "Um dos romances mais famosos de Agatha Christie, que acompanha dez estranhos convidados para uma ilha isolada, onde são misteriosamente assassinados um por um, deixando o leitor adivinhar quem é o assassino."
+    }
+  ]
+  ,
+  "user":[
+    {
+      "nome": "Pedro",
+      "email": "pedro@email.com",
+      "senha": "senha1234"
+    },
+    {
+      "nome": "José",
+      "email": "jose@email.com",
+      "senha": "senha4321"
+    }
+  ]
+}
