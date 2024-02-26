@@ -5,6 +5,7 @@ import livroRouter from "./routes/livroRoute.js";
 import autorRouter from "./routes/autorRoute.js";
 
 // Conexão com com o bando de dados
+// 
 const connect = await dbConnect();
 
 connect.on("error", (erro) =>{
