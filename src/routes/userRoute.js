@@ -7,9 +7,7 @@ import {
     deletarUser
 } from "../controllers/userController.js";
 
-
 const userRouter = express.Router();
-
 
 userRouter.get("/", listarUsers);
 userRouter.get("/:id", buscarUserPorId);

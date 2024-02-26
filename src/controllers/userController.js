@@ -73,10 +73,10 @@ async function atualizarUser(req, res) {
 async function deletarUser(req, res) {
     try {
         const userId = req.params.id;
-        console.log("ID do user a ser deletado:", userId); // Adicionando log
+        console.log("ID do user a ser deletado:", userId);
 
         const userDeletado = await Autor.findByIdAndDelete(userId);
-        console.log("Resultado da exclusão:", userDeletado); // Adicionando log
+        console.log("Resultado da exclusão:", userDeletado);
 
         if (!userDeletado) {
             return res.status(404).json({message: "User não encontrado"})

@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import { autorSchema, Autor } from "./autorModel.js";
 
-const { Schema } = mongoose; //esqueleto do model
+const { Schema } = mongoose;
 
-// o model de fato para poder get post
+
 const livroSchema = new Schema({
     id: {
         type: mongoose.Schema.Types.ObjectId,
@@ -21,10 +21,7 @@ const livroSchema = new Schema({
     autor:{
         type: [autorSchema],
     },
-    // preço:{
-    //     type: Number,
-    //     required: true,
-    // },
+
     ano:{
         type: Number,
         required: true, 
@@ -35,9 +32,6 @@ const livroSchema = new Schema({
     },
 
 }, {versionKey: false}, {timestamps: true}); // salva a data de criacao e atualizacao do registro que pode ser usada por exemplo para ordernacao de registro
-
-//o isbn poderia ser o id
-//o livro não tem preço?
 
 const Livro = mongoose.model("Livro", livroSchema); //Criando o model propriamente dito
 

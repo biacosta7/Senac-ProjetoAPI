@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
-const { Schema } = mongoose; //esqueleto do model
+const { Schema } = mongoose; 
 
-//const { livroSchema } = require("./livroModel");
-// o model de fato para poder get post
 const autorSchema = new Schema({
     id: {
         type: mongoose.Schema.Types.ObjectId,

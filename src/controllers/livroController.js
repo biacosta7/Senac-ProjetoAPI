@@ -10,20 +10,6 @@ async function listarLivros(req, res) {
     }
 }
 
-//Buscar livro pelo nome
-async function buscarLivroPorNome(req, res) {
-    try {
-        const livro = await Livro.findOne({titulo: req.params.titulo});
-        if (!livro) {
-            return res.status(404).json({message: "Livro não encontrado"});
-        } else {
-            res.status(200).json(livro);
-        }
-    } catch (err) {
-        res.status(500).json({message: err.message});
-    }
-}
-
 ////Buscar livro pelo ID
 async function buscarLivroPorId(req, res) {
     try {
@@ -91,10 +77,10 @@ async function atualizarLivro(req, res) {
 async function deletarLivro(req, res) {
     try {
         const livroId = req.params.id;
-        console.log("ID do livro a ser deletado:", livroId); // Adicionando log
+        console.log("ID do livro a ser deletado:", livroId);
 
         const livroDeletado = await Livro.findByIdAndDelete(livroId);
-        console.log("Resultado da exclusão:", livroDeletado); // Adicionando log
+        console.log("Resultado da exclusão:", livroDeletado);
 
         if (!livroDeletado) {
             return res.status(404).json({message: "Livro não encontrado"})
@@ -110,7 +96,6 @@ async function deletarLivro(req, res) {
 
 export {
     listarLivros,
-    buscarLivroPorNome,
     buscarLivroPorId,
     criarLivro,
     atualizarLivro,
