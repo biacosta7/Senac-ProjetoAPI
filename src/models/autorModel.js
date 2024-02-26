@@ -1,23 +1,28 @@
 import mongoose from "mongoose";
+const { Schema } = mongoose; //esqueleto do model
 
-const autorSchema = mongoose.Schema({
+//const { livroSchema } = require("./livroModel");
+// o model de fato para poder get post
+const autorSchema = new Schema({
     id: {
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
     },
-    nome: {
+    nome:{
         type: String,
-        required: true
+        required: true,
     },
     nascimento: {
-        type: Date
+        type: Date,
     },
     falecimento: {
-        type: Date
-    }
-},{
-    versionKey: false
-});
+        type: Date,
+    },
 
-const Autor = mongoose.model("Autor", autorSchema);
+}, {versionKey: false}, {timestamps: true}); // salva a data de criacao e atualizacao do registro que pode ser usada por exemplo para ordernacao de registro
+
+const Autor = mongoose.model("Autor", autorSchema); //Criando o model propriamente dito
+
+export { autorSchema, Autor };
+
 
 export default Autor;

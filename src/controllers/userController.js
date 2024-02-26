@@ -1,62 +1,99 @@
 import User from "../models/userModel.js"
 
-// Infromações do usuário logado
-// Rota /user
-// Método GET
-const usuarioLogado = async(req, res) =>{
-    const listaUser = await User.find({});
-    if(listaUser){
-        return res.status(200).json(listaUser)
-    } else if(listaUser === null){
-        return res.send(`<h1>Tela do usuario</h1>`)
-    }
-    
-}
 
-// Registro de novo usuário
-// Rota /user/registrar
-// Método POST
-const registrarUsuario = async(req, res) => {
-    const user = {
-        nome: req.body.nome,
-        email: req.body.email,
-        senha: req.body.senha
-    };
-    if(!user.nome || !user.email || !user.senha){
-        return res.status(400).json({menssagem: "Por favor insira um nome, email, senha"})
-    }
-    const findEmail = await User.findOne({email: user.email});
-    if(findEmail){
-        return res.status(400).json({menssagem: "E-mail já utilizado"});
-    }
-    const novoUser = await User.create(user);
-    if(novoUser){
-        return res.status(201).json(novoUser)
+//Listar todos os users
+async function listarUsers(req, res) {
+    try {
+        const Users = await User.find();
+        res.status(200).json(Users);
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
     }
 }
 
-// Login do usuário
-// Rota /user/login
-// Método POST
-const usuarioLogin = async(req, res) => {
-    const { email, senha} = req.body;
-    if(!email || !senha){
-        return res.status(400).json({menssagem: "Por favor insira seu email e senha"})
-    }
-    const findEmail = await User.findOne({email: email});
-    if(findEmail === null){
-        return res.status(404).json({menssagem: `Não existe nenhum usuário cadastrado com esse email`})
-    }
-    const findUser = await User.findOne({email: email, senha: senha});
-    if(findUser === null){
-        return res.status(404).json({menssagem: "Senha incorreta"})
-    } else if(findUser){
-        return res.status(200).json(findUser)
+////Buscar user pelo ID
+async function buscarUserPorId(req, res) {
+    try {
+        const userId = req.params.id;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({message: "User não encontrado"});
+        } else {
+            res.status(200).json(user);
+        }
+    } catch (err) {
+        res.status(500).json({message: err.message});
     }
 }
 
-export{
-    usuarioLogado,
-    registrarUsuario,
-    usuarioLogin
+
+//Criar user
+async function criarUser(req, res) {
+    try {
+        const user = new User({
+            nome: req.body.nome,
+            email: req.body.email,
+            senha: req.body.senha,
+        });
+
+        const novoUser = await user.save();
+
+        res.status(201).json(novoUser)
+
+    } catch (err) {
+        return res.status(500).json({message: err.message});
+    }
 }
+
+//Atualizar user
+async function atualizarUser(req, res) {
+    try {
+        const userId = req.params.id;
+        const novosDados = {
+            nome: req.body.nome,
+            email: req.body.email,
+            senha: req.body.senha,
+        };
+
+        const userAtualizado = await User.findByIdAndUpdate(userId, novosDados, {new: true});
+
+        if (!userAtualizado){
+            return res.status(404).json({ message: "User não encontrado"});
+        } else {
+            res.status(200).json(userAtualizado);
+        }
+
+    } catch (err){
+        return res.status(500).json({message: err.message});
+    }
+}
+
+
+//Deletar user
+async function deletarUser(req, res) {
+    try {
+        const userId = req.params.id;
+        console.log("ID do user a ser deletado:", userId); // Adicionando log
+
+        const userDeletado = await Autor.findByIdAndDelete(userId);
+        console.log("Resultado da exclusão:", userDeletado); // Adicionando log
+
+        if (!userDeletado) {
+            return res.status(404).json({message: "User não encontrado"})
+        } else {
+            res.status(200).json({message: "User deletado com sucesso"});
+        }
+
+    } catch (err) {
+        return res.status(500).json({message: err.message});
+    }
+}
+
+
+export {
+    listarUsers,
+    buscarUserPorId,
+    criarUser,
+    atualizarUser,
+    deletarUser
+};

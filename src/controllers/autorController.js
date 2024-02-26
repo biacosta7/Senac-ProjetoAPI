@@ -1,89 +1,99 @@
 import Autor from "../models/autorModel.js"
 
 
-// Lista de todos os autores
-// Rota /autor
-// Método GET
-const listaDeAutores = async(req, res) => {
-    const listaAutores = await Autor.find({});
-    if(listaAutores){
-        res.status(200).json(listaAutores);
-    } else if(listaAutores === null){
-        res.status(404).json({menssagem: "Nenhum autor foi encontrado"});
+//Listar todos os autores
+async function listarAutores(req, res) {
+    try {
+        const Autores = await Autor.find();
+        res.status(200).json(Autores);
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
     }
-};
+}
 
-// Registrar novos autores
-// Rota /autor
-// Método POST
-const registrarAutor = async(req, res) => {
-    if(!req.body.nome){
-        return res.status(400).json({menssagem: "Insira o nome do autor"});
+////Buscar autor pelo ID
+async function buscarAutorPorId(req, res) {
+    try {
+        const autorId = req.params.id;
+        const autor = await Autor.findById(autorId);
+        if (!autor) {
+            return res.status(404).json({message: "Autor não encontrado"});
+        } else {
+            res.status(200).json(autor);
+        }
+    } catch (err) {
+        res.status(500).json({message: err.message});
     }
-    const novoAutor = await Autor.create(req.body);
-    if(novoAutor){
-        return res.status(201).json(novoAutor);
-    }
-};
+}
 
-// Informação do autor por id
-// Rota /autor/:id
-// Método GET
-const autorPorId = async(req, res) => {
-    let id = req.params.id
-    if(!id){
-        return res.status(400).json({menssagem: "Nenhum id foi passado"})
-    }
-    const findAutor = await Autor.findById(id);
-    if(findAutor){
-        return res.status(200).json(findAutor);
-    } else if(findAutor === null){
-        return res.status(404).json({menssagem: `Não foi encontrado nenhum ator com id ${id}`});
-    }
-};
 
-// Atualizar autor por id
-// Rota /autor/:id
-// Método PUT
-const atualizarAutor = async(req, res) => {
-    let id = req.params.id;
-    if(!id){
-        return res.status(400).json({menssagem: "Nenhum id foi passado"});
-    }
-    const updateAutor = req.body;
-    if(!updateAutor.nome && !updateAutor.nascimento && !updateAutor.falecimento){
-        return res.status(400).json({menssagem: "Você precisa inserir informoções para atualizar"});
-    }
-    const autorAtualizado = await Autor.findByIdAndUpdate(id, updateAutor, {new: true});
-    if(autorAtualizado){
-        return res.status(200).json(autorAtualizado);
-    } else if(autorAtualizado === null){
-        return res.status(404).json({menssagem: `Não foi encontrado nenhum ator com id ${id}`});
-    }
-};
+//Criar autor
+async function criarAutor(req, res) {
+    try {
+        const autor = new Autor({
+            nome: req.body.nome,
+            nascimento: req.body.nascimento,
+            falecimento: req.body.falecimento,
+        });
 
-// Deletar autor por id
-// Rota /autor/:id
-// Método Delete   
-/*OBS: PRECISA REMOVER TODOS OS LIVROS DO AUTOR*/
-const apagarAutor = async(req, res) => {
-    let id = req.params.id
-    if(!id){
-        return res.status(400).json({menssagem: "Nenhum id foi passado"})
+        const novoAutor = await autor.save();
+
+        res.status(201).json(novoAutor)
+
+    } catch (err) {
+        return res.status(500).json({message: err.message});
     }
-    const deleteAutor = await Autor.findByIdAndDelete(id);
-    if(deleteAutor){
-        return res.status(200).json({menssagem: `Autor de id ${id} foi deletado`});
-    } else if(deleteAutor === null){
-        return res.status(404).json({menssagem: `Não foi encontrado nenhum ator com id ${id}`})
+}
+
+//Atualizar autor
+async function atualizarAutor(req, res) {
+    try {
+        const autorId = req.params.id;
+        const novosDados = {
+            nome: req.body.nome,
+            nascimento: req.body.nascimento,
+            falecimento: req.body.falecimento,
+        };
+
+        const autorAtualizado = await Autor.findByIdAndUpdate(autorId, novosDados, {new: true});
+
+        if (!autorAtualizado){
+            return res.status(404).json({ message: "Autor não encontrado"});
+        } else {
+            res.status(200).json(autorAtualizado);
+        }
+
+    } catch (err){
+        return res.status(500).json({message: err.message});
     }
-    
-};
+}
+
+
+//Deletar autor
+async function deletarAutor(req, res) {
+    try {
+        const autorId = req.params.id;
+        console.log("ID do autor a ser deletado:", autorId); // Adicionando log
+
+        const autorDeletado = await Autor.findByIdAndDelete(autorId);
+        console.log("Resultado da exclusão:", autorDeletado); // Adicionando log
+
+        if (!autorDeletado) {
+            return res.status(404).json({message: "Autor não encontrado"})
+        } else {
+            res.status(200).json({message: "Autor deletado com sucesso"});
+        }
+
+    } catch (err) {
+        return res.status(500).json({message: err.message});
+    }
+}
+
 
 export {
-    listaDeAutores,
-    registrarAutor,
-    autorPorId,
+    listarAutores,
+    buscarAutorPorId,
+    criarAutor,
     atualizarAutor,
-    apagarAutor
-}
+    deletarAutor
+};

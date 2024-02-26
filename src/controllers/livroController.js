@@ -1,100 +1,118 @@
-import Autor from "../models/autorModel.js"
 import Livro from "../models/livroModel.js"
-// Infromações de todos os livro
-// Rota /livro
-// Método GET
-const listaDeLivros = async(req, res) => {
-    const listaLivros = await Livro.find({});
-    if(listaLivros === null){
-        res.send(`<h1>Página dos livros</h1>`)
-    } else if(listaLivros){
-        return res.status(200).json(listaLivros)
-    }
-    
-};
 
-// Adicionar novo livro
-// Rota /livro
-// Método POST
-const registrarLivro = async(req, res) => {
-    const livro = {
-        titulo: req.body.titulo,
-        autor: req.body.autor,
-        isbn: req.body.isbn,
-        ano: req.body.ano,
-        genero: req.body.genero,
+//Listar todos os livros
+async function listarLivros(req, res) {
+    try {
+        const livros = await Livro.find();
+        res.status(200).json(livros);
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
     }
-    if(!livro.titulo|| !livro.isbn ||!livro.autor ||!livro.ano){
-        return res.status(400).json({menssagem: "Por favor insira um título, autor, ano, isbn"})
+}
+
+//Buscar livro pelo nome
+async function buscarLivroPorNome(req, res) {
+    try {
+        const livro = await Livro.findOne({titulo: req.params.titulo});
+        if (!livro) {
+            return res.status(404).json({message: "Livro não encontrado"});
+        } else {
+            res.status(200).json(livro);
+        }
+    } catch (err) {
+        res.status(500).json({message: err.message});
     }
-    const findAutor = await Autor.findById(livro.autor)
-    if(findAutor === null){
-        return res.status(404).json({menssagem: "Esse autor não foi cadastrado"});
+}
+
+////Buscar livro pelo ID
+async function buscarLivroPorId(req, res) {
+    try {
+        const livroId = req.params.id;
+        const livro = await Livro.findById(livroId);
+        if (!livro) {
+            return res.status(404).json({message: "Livro não encontrado"});
+        } else {
+            res.status(200).json(livro);
+        }
+    } catch (err) {
+        res.status(500).json({message: err.message});
     }
-    const novoLivro = await Livro.create(livro);
-    if(novoLivro){
-        return res.status(201).json(novoLivro)
-    } 
+}
 
 
-};
+//Criar livro
+async function criarLivro(req, res) {
+    try {
+        const livro = new Livro({
+            isbn: req.body.isbn,
+            titulo: req.body.titulo,
+            autor: req.body.autor,
+            //preço: req.body.preco,
+            ano: req.body.ano,
+            genero: req.body.genero
+        });
 
-// Infromação do livro por id 
-// Rota /livro/:id
-// Método GET
-const livroPorId = async(req, res) => {
-    const id = req.params.id
-    if(!id){
-        return res.status(400).json({menssagem: "Nenhum id foi passado"});
-    }
-    const findLivro = await Livro.findById(id);
-    if(findLivro === null){
-        return res.status(404).json({menssagem: "Não foi encontrado nenhum livro com esse id"});
-    } else if(findLivro){
-        return res.status(200).json(findLivro);
-    }
-};
+        const novoLivro = await livro.save();
 
-// Atualizar livro por id
-// Rota /livro/:id
-// Método PUT
-const atualizarLivro = async(req, res) => {
-    const id = req.params.id
-    if(!id){
-        return res.status(400).json({menssagem: "Nenhum id foi passado"});
-    }
-    const updtLivro = req.body;
-    if(!updtLivro.titulo && !updtLivro.autor && !updtLivro.ano && !updtLivro.idbn && !updtLivro.genero){
-        return res.status(400).json({menssagem: "Nenhuma informação foi passada para atualizar"})
-    }
-    const livroAtualizado = await Livro.findByIdAndUpdate(id, updtLivro, {new: true});
-    if(livroAtualizado === null){
-        return res.status(404).json({menssagem: `Não foi possível autalizar. Nenhum livro com esse id: ${id} foi encontrado`})
-    } else if(livroAtualizado){
-        return res.status(200).json(livroAtualizado)
-    }
-};
+        res.status(201).json(novoLivro)
 
-// Excluir livro por id
-// Rota /livro/:id
-// Método DELETE
-const apagarLivro = async(req, res) => {
-    const id = req.params.id
-    if(!id){
-        return res.status(400).json({menssagem: "Nenhum id foi passado"});
+    } catch (err) {
+        return res.status(500).json({message: err.message});
     }
-    const livroApagado = await Livro.findByIdAndDelete(id);
-    if(livroApagado === null){
-        return res.status(404).json({menssagem: `Não foi encontrado nenhum livro com esse id: ${id}`})
-    } else if(livroApagado){
-        return res.status(200).json({menssagem: `Livro de id: ${id} foi deletado com sucesso`})
+}
+
+//Atualizar livro
+async function atualizarLivro(req, res) {
+    try {
+        const livroId = req.params.id;
+        const novosDados = {
+            isbn: req.body.isbn,
+            titulo: req.body.titulo,
+            autor: req.body.autor,
+            ano: req.body.ano,
+            genero: req.body.genero
+        };
+
+        const livroAtualizado = await Livro.findByIdAndUpdate(livroId, novosDados, {new: true});
+
+        if (!livroAtualizado){
+            return res.status(404).json({ message: "Livro não encontrado"});
+        } else {
+            res.status(200).json(livroAtualizado);
+        }
+
+    } catch (err){
+        return res.status(500).json({message: err.message});
     }
-};
+}
+
+
+//Deletar livro
+async function deletarLivro(req, res) {
+    try {
+        const livroId = req.params.id;
+        console.log("ID do livro a ser deletado:", livroId); // Adicionando log
+
+        const livroDeletado = await Livro.findByIdAndDelete(livroId);
+        console.log("Resultado da exclusão:", livroDeletado); // Adicionando log
+
+        if (!livroDeletado) {
+            return res.status(404).json({message: "Livro não encontrado"})
+        } else {
+            res.status(200).json({message: "Livro deletado com sucesso"});
+        }
+
+    } catch (err) {
+        return res.status(500).json({message: err.message});
+    }
+}
+
 
 export {
-    listaDeLivros,
-    registrarLivro,
-    livroPorId,
+    listarLivros,
+    buscarLivroPorNome,
+    buscarLivroPorId,
+    criarLivro,
     atualizarLivro,
-    apagarLivro
+    deletarLivro
 };
