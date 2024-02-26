@@ -1,5 +1,4 @@
 import express from "express";
-//comentario
 
 import {
     listarAutores,
@@ -8,10 +7,8 @@ import {
     atualizarAutor,
     deletarAutor
 } from "../controllers/autorController.js";
-; 
 
 const autorRouter = express.Router();
-
 
 autorRouter.get("/", listarAutores);
 autorRouter.get("/:id", buscarAutorPorId);

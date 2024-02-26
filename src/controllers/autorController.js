@@ -1,6 +1,5 @@
 import Autor from "../models/autorModel.js"
 
-
 //Listar todos os autores
 async function listarAutores(req, res) {
     try {
@@ -73,10 +72,10 @@ async function atualizarAutor(req, res) {
 async function deletarAutor(req, res) {
     try {
         const autorId = req.params.id;
-        console.log("ID do autor a ser deletado:", autorId); // Adicionando log
+        console.log("ID do autor a ser deletado:", autorId); 
 
         const autorDeletado = await Autor.findByIdAndDelete(autorId);
-        console.log("Resultado da exclusão:", autorDeletado); // Adicionando log
+        console.log("Resultado da exclusão:", autorDeletado); 
 
         if (!autorDeletado) {
             return res.status(404).json({message: "Autor não encontrado"})
