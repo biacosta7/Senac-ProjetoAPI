@@ -1,15 +1,9 @@
 import express from "express";
-import {
-    listaDeAutores,
-    registrarAutor,
-    autorPorId,
-    atualizarAutor,
-    apagarAutor
-} from "../controllers/autorController.js";
+import AutorControllers from "../controllers/autorController.js";
 
 const autorRouter = express.Router();
 
-autorRouter.route("/").get(listaDeAutores).post(registrarAutor);
-autorRouter.route("/:id").get(autorPorId).put(atualizarAutor).delete(apagarAutor);
+autorRouter.route("/").get(AutorControllers.listaDeAutores).post(AutorControllers.registrarAutor);
+autorRouter.route("/:id").get(AutorControllers.autorPorId).put(AutorControllers.atualizarAutor).delete(AutorControllers.apagarAutor);
 
 export default autorRouter;
