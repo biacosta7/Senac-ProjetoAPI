@@ -6,7 +6,7 @@ class LivroController{
     //Listar todos os livros
     static async listarLivros(req, res) {
         try {
-            const livros = await Livro.find();
+            const livros = await Livro.find().populate("autor", "nome");
             res.status(200).json(livros);
         } catch (err) {
             return res.status(500).json({ message: err.message });
@@ -17,7 +17,7 @@ class LivroController{
     static async buscarLivroPorId(req, res) {
         try {
             const livroId = req.params.id;
-            const livro = await Livro.findById(livroId);
+            const livro = await Livro.findById(livroId).populate("autor", "nome");
             if (!livro) {
                 return res.status(404).json({message: "Livro não encontrado"});
             } else {
@@ -37,7 +37,8 @@ class LivroController{
                 titulo: req.body.titulo,
                 autor: req.body.autor,
                 ano: req.body.ano,
-                genero: req.body.genero
+                genero: req.body.genero,
+                resumo: req.body.resumo
             });
 
             const novoLivro = await livro.save();
@@ -58,7 +59,8 @@ class LivroController{
                 titulo: req.body.titulo,
                 autor: req.body.autor,
                 ano: req.body.ano,
-                genero: req.body.genero
+                genero: req.body.genero,
+                resumo: req.body.resumo,
             };
 
             const livroAtualizado = await Livro.findByIdAndUpdate(livroId, novosDados, {new: true});

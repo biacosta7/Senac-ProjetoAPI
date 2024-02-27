@@ -20,7 +20,4 @@ const autorSchema = new Schema({
 
 const Autor = mongoose.model("Autor", autorSchema); //Criando o model propriamente dito
 
-export { autorSchema, Autor };
-
-
 export default Autor;

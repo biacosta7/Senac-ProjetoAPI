@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { autorSchema, Autor } from "./autorModel.js";
 
 const { Schema } = mongoose;
 
@@ -19,17 +18,23 @@ const livroSchema = new Schema({
         required: true,
     },
     autor:{
-        type: [autorSchema],
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Autor",
+        required: true,
     },
 
     ano:{
-        type: Number,
+        type: Date,
         required: true, 
     },
     genero:{
         type: String,
         required: true,
     },
+    resumo: {
+        type: String,
+        required: true,
+    }
 
 }, {versionKey: false}, {timestamps: true}); // salva a data de criacao e atualizacao do registro que pode ser usada por exemplo para ordernacao de registro
 

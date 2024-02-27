@@ -1,5 +1,5 @@
 import Autor from "../models/autorModel.js"
-
+import Livro from "../models/livroModel.js"
 
 class AutorController {
     //Listar todos os autores
@@ -17,10 +17,14 @@ class AutorController {
         try {
             const autorId = req.params.id;
             const autor = await Autor.findById(autorId);
+            const livrosDoAutor = await Livro.find({autor: autorId}, "titulo ano genero resumo");
             if (!autor) {
                 return res.status(404).json({message: "Autor não encontrado"});
             } else {
-                res.status(200).json(autor);
+                res.status(200).json({
+                    autor: autor,
+                    livrosDoAutor: livrosDoAutor,
+                });
             }
         } catch (err) {
             res.status(500).json({message: err.message});
