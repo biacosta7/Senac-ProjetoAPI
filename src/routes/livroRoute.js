@@ -1,19 +1,13 @@
 import express from "express"
-import {
-    listarLivros,
-    buscarLivroPorId,
-    criarLivro,
-    atualizarLivro,
-    deletarLivro
-} from "../controllers/livroController.js";
+import LivroController from "../controllers/livroController.js";
 
 const livroRouter = express.Router();
 
-livroRouter.get("/", listarLivros);
-livroRouter.get("/:id", buscarLivroPorId);
-livroRouter.post("/", criarLivro);
-livroRouter.patch("/:id", atualizarLivro);
-livroRouter.delete("/:id", deletarLivro)
+livroRouter.get("/", LivroController.listarLivros);
+livroRouter.get("/:id", LivroController.buscarLivroPorId);
+livroRouter.post("/", LivroController.criarLivro);
+livroRouter.patch("/:id", LivroController.atualizarLivro);
+livroRouter.delete("/:id", LivroController.deletarLivro)
 
 // GET /: Listar todos os livros.
 // GET /nome/:nome: Buscar livro pelo nome.
