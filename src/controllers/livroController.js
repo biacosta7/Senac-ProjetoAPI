@@ -1,12 +1,15 @@
 import Livro from "../models/livroModel.js"
-
+import Autor from "../models/autorModel.js"
+import {ObjectId} from "mongodb"
 
 class LivroController{
 
     //Listar todos os livros
     static async listarLivros(req, res) {
         try {
-            const livros = await Livro.find().populate("autor", "nome");
+            const livros = await Livro.find()
+                .populate("autor", "nome")
+                .sort({titulo: 1});
             res.status(200).json(livros);
         } catch (err) {
             return res.status(500).json({ message: err.message });
@@ -32,7 +35,12 @@ class LivroController{
     //Criar livro
     static async criarLivro(req, res) {
         try {
+            if(Array.isArray(req.body)){
+                const listaDeLivros = await Livro.create(req.body)
+                return res.status(201).json(listaDeLivros)
+            }
             const livro = new Livro({
+                _id: req.body._id ? new ObjectId(req.body._id) : new ObjectId(),
                 isbn: req.body.isbn,
                 titulo: req.body.titulo,
                 autor: req.body.autor,
@@ -41,10 +49,14 @@ class LivroController{
                 resumo: req.body.resumo
             });
 
-            const novoLivro = await livro.save();
-
-            res.status(201).json(novoLivro)
-
+            const autorExiste = await Autor.findById(livro.autor);
+            
+            if(autorExiste){
+                const novoLivro = await livro.save();
+                res.status(201).json(novoLivro)
+            } else {
+                res.status(400).json({menssagem: "Autor nao foi cadastrado"})
+            }    
         } catch (err) {
             return res.status(500).json({message: err.message});
         }

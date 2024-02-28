@@ -1,0 +1,44 @@
+[
+  {
+    "_id": "612e1597c93aa47c3013b468",
+    "nome": "Gabriel García Márquez",
+    "nascimento": "1927-03-06",
+    "falecimento": "2014-04-17"
+  },
+  {
+    "_id": "612e15b3c93aa47c3013b469",
+    "nome": "Haruki Murakami",
+    "nascimento": "1949-01-12",
+    "falecimento": null
+  },
+  {
+    "_id": "612e15c8c93aa47c3013b46a",
+    "nome": "Jane Austen",
+    "nascimento": "1775-12-16",
+    "falecimento": "1817-07-18"
+  },
+  {
+    "_id": "612e15ddc93aa47c3013b46b",
+    "nome": "George Orwell",
+    "nascimento": "1903-06-25",
+    "falecimento": "1950-01-21"
+  },
+  {
+    "_id": "612e15f8c93aa47c3013b46c",
+    "nome": "J.K. Rowling",
+    "nascimento": "1965-07-31",
+    "falecimento": null
+  },
+  {
+    "_id": "612e160ec93aa47c3013b46d",
+    "nome": "Stephen King",
+    "nascimento": "1947-09-21",
+    "falecimento": null
+  },
+  {
+    "_id": "612e1622c93aa47c3013b46e",
+    "nome": "Agatha Christie",
+    "nascimento": "1890-09-15",
+    "falecimento": "1976-01-12"
+  }
+]

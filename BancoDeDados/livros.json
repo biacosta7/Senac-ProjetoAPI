@@ -1,0 +1,106 @@
+[
+  {
+    "titulo": "Cem Anos de Solidão",
+    "autor": "612e1597c93aa47c3013b468",
+    "isbn": "9788535914844",
+    "ano": "1967",
+    "genero": "Realismo Mágico",
+    "resumo": "Um épico que narra a história da família Buendía ao longo de várias gerações na fictícia cidade de Macondo, explorando temas de solidão, amor, e destino."
+  },
+  {
+    "titulo": "Norwegian Wood",
+    "autor": "612e15b3c93aa47c3013b469",
+    "isbn": "9780099540878",
+    "ano": "1987",
+    "genero": "Ficção Contemporânea",
+    "resumo": "Um romance nostálgico que segue Toru Watanabe enquanto ele relembra seu relacionamento com Naoko e sua amizade com o excêntrico Nagasawa durante os tumultuosos anos 60 no Japão."
+  },
+  {
+    "titulo": "Orgulho e Preconceito",
+    "autor": "612e15c8c93aa47c3013b46a",
+    "isbn": "9788535904630",
+    "ano": "1813",
+    "genero": "Romance",
+    "resumo": "Um clássico da literatura inglesa que acompanha a vida da inteligente Elizabeth Bennet enquanto ela navega pelas complexidades do amor, casamento e sociedade na Inglaterra do século XIX."
+  },
+  {
+    "titulo": "1984",
+    "autor": "612e15ddc93aa47c3013b46b",
+    "isbn": "9780451524935",
+    "ano": "1949",
+    "genero": "Ficção Distópica",
+    "resumo": "Uma visão sombria do futuro distópico, onde o governo totalitário controla todos os aspectos da vida, e a liberdade de pensamento é suprimida pelo Big Brother."
+  },
+  {
+    "titulo": "Crônica de uma Morte Anunciada",
+    "autor": "612e1597c93aa47c3013b468",
+    "isbn": "9788535903770",
+    "ano": "1981",
+    "genero": "Ficção Realista",
+    "resumo": "Uma narrativa não-linear que explora os eventos que levaram ao assassinato de Santiago Nasar em uma pequena cidade colombiana, revelando segredos e traições ao longo do caminho."
+  },
+  {
+    "titulo": "Kafka à Beira-Mar",
+    "autor": "612e15b3c93aa47c3013b469",
+    "isbn": "9788535909284",
+    "ano": "2002",
+    "genero": "Ficção Surrealista",
+    "resumo": "Uma obra complexa que entrelaça as histórias de Kafka Tamura, um adolescente fugitivo, e Nakata, um homem idoso com habilidades misteriosas, explorando temas de identidade, destino e solidão."
+  },
+  {
+    "titulo": "Emma",
+    "autor": "612e15c8c93aa47c3013b46a",
+    "isbn": "9788535907280",
+    "ano": "1815",
+    "genero": "Romance",
+    "resumo": "Uma comédia de costumes que segue as desventuras de Emma Woodhouse enquanto ela tenta fazer casamentos para seus amigos e descobre o amor e a responsabilidade ao longo do caminho."
+  },
+  {
+    "titulo": "A Revolução dos Bichos",
+    "autor": "612e15ddc93aa47c3013b46b",
+    "isbn": "9788573261020",
+    "ano": "1945",
+    "genero": "Sátira",
+    "resumo": "Uma fábula política que retrata uma fazenda onde os animais se rebelam contra seus donos humanos, apenas para descobrir que a tirania pode surgir de dentro de suas próprias fileiras."
+  },
+  {
+    "titulo": "O Amor nos Tempos do Cólera",
+    "autor": "612e1597c93aa47c3013b468",
+    "isbn": "9788535909598",
+    "ano": "1985",
+    "genero": "Romance",
+    "resumo": "Uma história de amor épica que segue a vida de Florentino Ariza e Fermina Daza ao longo de décadas, explorando a natureza do amor e da paixão em face da adversidade."
+  },
+  {
+    "titulo": "1Q84",
+    "autor": "612e15b3c93aa47c3013b469",
+    "isbn": "9788535910051",
+    "ano": "2009",
+    "genero": "Ficção Especulativa",
+    "resumo": "Um romance complexo que segue os destinos entrelaçados de Aomame, uma assassina profissional, e Tengo, um escritor, em um mundo alternativo onde estranhas e perturbadoras realidades começam a se desdobrar."
+  },
+  {
+    "titulo": "It: A Coisa",
+    "autor": "612e160ec93aa47c3013b46d",
+    "isbn": "9788581051795",
+    "ano": "1986",
+    "genero": "Horror",
+    "resumo": "Um épico de terror que acompanha um grupo de amigos que enfrenta uma entidade maligna que assume a forma dos maiores medos de suas vítimas, revisitando a cidade de Derry, Maine, onde juraram acabar com a criatura quando eram crianças."
+  },
+  {
+    "titulo": "Harry Potter e a Pedra Filosofal",
+    "autor": "612e15f8c93aa47c3013b46c",
+    "isbn": "9788532530785",
+    "ano": "1997",
+    "genero": "Fantasia",
+    "resumo": "O primeiro livro da série Harry Potter, que narra as aventuras de um jovem bruxo chamado Harry, que descobre seu verdadeiro destino ao frequentar a Escola de Magia e Bruxaria de Hogwarts."
+  },
+  {
+    "titulo": "Assassinato no Expresso Oriente",
+    "autor": "612e1622c93aa47c3013b46e",
+    "isbn": "9788525406977",
+    "ano": "1934",
+    "genero": "Mistério",
+    "resumo": "Um dos mais famosos romances policiais de Agatha Christie, que segue o detetive Hercule Poirot enquanto ele investiga um assassinato ocorrido a bordo do luxuoso Expresso Oriente durante uma viagem de trem pela Europa."
+  }
+]

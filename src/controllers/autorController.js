@@ -1,11 +1,12 @@
 import Autor from "../models/autorModel.js"
 import Livro from "../models/livroModel.js"
+import {ObjectId} from "mongodb"
 
 class AutorController {
     //Listar todos os autores
     static async listarAutores(req, res) {
         try {
-            const Autores = await Autor.find();
+            const Autores = await Autor.find().sort({nome: 1});
             res.status(200).json(Autores);
         } catch (err) {
             return res.status(500).json({ message: err.message });
@@ -17,7 +18,7 @@ class AutorController {
         try {
             const autorId = req.params.id;
             const autor = await Autor.findById(autorId);
-            const livrosDoAutor = await Livro.find({autor: autorId}, "titulo ano genero resumo");
+            const livrosDoAutor = await Livro.find({autor: autorId}, "titulo ano genero resumo").sort({titulo: 1});
             if (!autor) {
                 return res.status(404).json({message: "Autor não encontrado"});
             } else {
@@ -35,7 +36,12 @@ class AutorController {
     //Criar autor
     static async criarAutor(req, res) {
         try {
+            if(Array.isArray(req.body)){
+                const listaAutor = await Autor.create(req.body)
+                return res.status(201).json(listaAutor)
+            }
             const autor = new Autor({
+                _id: req.body._id ? new ObjectId(req.body._id) : new ObjectId(),
                 nome: req.body.nome,
                 nascimento: req.body.nascimento,
                 falecimento: req.body.falecimento,
